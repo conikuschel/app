@@ -69,7 +69,7 @@ function Chat({ socket, username}) {
     });
   }, [truckList, markers]);
 
-  /* useEffect(() => {
+  useEffect(() => {
     socket.on("FIX", (data) => {
       if (truckList.length){
         let clonedArray = JSON.parse(JSON.stringify(truckList));
@@ -95,7 +95,7 @@ function Chat({ socket, username}) {
         }  
       }
     });
-  }, [truckList]); */
+  }, [truckList]);
 
   useEffect(() => {
     socket.on("CHAT", (data) => {
