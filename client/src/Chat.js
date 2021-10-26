@@ -4,6 +4,7 @@ import { TileLayer, Marker, Popup, MapContainer } from 'react-leaflet';
 import  "leaflet-polylinedecorator";
 import { Card } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
+import * as L from "leaflet";
 
 function Chat({ socket, username}) {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -75,7 +76,6 @@ function Chat({ socket, username}) {
           markers[data.code].setLatLng(data.position);
         } else {
           let clonedMarkers = markers;
-          var L = window.L;
           clonedMarkers[data.code] = L.marker(data.position).addTo(map).bindPopup(data.code);
           clonedMarkers[data.code].on('mouseover',function(ev) {
             clonedMarkers[data.code].openPopup();
@@ -142,7 +142,6 @@ function Chat({ socket, username}) {
         setTruckList2(data);
         setTruckList(listaca);
         truckList2.forEach(function(par_od)  {
-          var L = window.L;
           var arrow = L.polyline([
             par_od.origin,
             par_od.destination
