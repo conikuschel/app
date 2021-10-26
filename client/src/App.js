@@ -26,10 +26,10 @@ function App() {
     <div className="App">
       {!showChat ? (
         <div className="joinChatContainer">
-          <h3>Join A Chat</h3>
+          <h3>Control de Camiones</h3>
           <input
             type="text"
-            placeholder="John..."
+            placeholder="Nombre o Nickname..."
             onChange={(event) => {
               setUsername(event.target.value);
             }}
