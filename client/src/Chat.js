@@ -45,13 +45,15 @@ function Chat({ socket, username}) {
       <Card style={{ width: "18rem", background: colorcito}} key={index} className="box">
         <Card.Body>
           <Card.Title>Camión {card.code}</Card.Title>
-          <Card.Text>Origen: {card.origin}</Card.Text>
-          <Card.Text>Destino: {card.destination}</Card.Text>
-          <Card.Text>Estado: {card?.states}</Card.Text>
-          <Card.Text>Capacidad: {card.capacity}</Card.Text>
-          <Card.Text>Engine: {card.engine}</Card.Text>
-          <Card.Text>Staff: {JSON.stringify(card.staff[0], null, 4)}</Card.Text>
-          <Card.Text>Truck: {card.truck}</Card.Text> 
+          <Card.Text style={{ "line-height": "0.5cm"}}>Origen: {card.origin}</Card.Text>
+          <Card.Text style={{ "line-height": "0.5cm"}}>Destino: {card.destination}</Card.Text>
+          <Card.Text style={{ "line-height": "0.5cm"}}>Estado: {card?.states}</Card.Text>
+          <Card.Text style={{ "line-height": "0.5cm"}}>Capacidad: {card.capacity}</Card.Text>
+          <Card.Text style={{ "line-height": "0.5cm"}}>Engine: {card.engine}</Card.Text>
+          {card.staff.map(function(data, idx) {
+              return <Card.Text key={idx} style={{ "line-height": "0.5cm"}}>Staff: {data.name} ({data.age})</Card.Text>;
+          })}
+          <Card.Text style={{ "line-height": "0.5cm"}}>Truck: {card.truck}</Card.Text> 
           {card?.states !== "Ok" && <Button onClick={() => Arreglar(card?.code)} variant="primary">Arreglar</Button>}
         </Card.Body>
       </Card>
