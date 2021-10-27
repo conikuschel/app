@@ -5,6 +5,7 @@ import  "leaflet-polylinedecorator";
 import { Card } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import * as L from "leaflet";
+import "leaflet/dist/images/marker-shadow.png";
 
 function Chat({ socket, username}) {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -49,7 +50,7 @@ function Chat({ socket, username}) {
               return <Card.Text key={idx} style={{ "line-height": "0.5cm"}}>Staff: {data.name} ({data.age})</Card.Text>;
           })}
           <Card.Text style={{ "line-height": "0.5cm"}}>Truck: {card.truck}</Card.Text> 
-          {card?.states !== "Ok" && <Button onClick={() => Arreglar(card?.code)} variant="primary">Arreglar</Button>}
+          {card?.states !== "Ok" && <Button onClick={() => {Arreglar(card?.code);}} variant="primary">Arreglar</Button>}
         </Card.Body>
       </Card>
     );
@@ -59,9 +60,8 @@ function Chat({ socket, username}) {
     const datito = {
       code: codigo
     };
-    console.log("soyyo");
-    console.log(codigo);
     socket.emit("FIX", datito);
+    
   }
 
   useEffect(() => {
@@ -94,14 +94,14 @@ function Chat({ socket, username}) {
         if (clonedArray[data.code]?.states !== "Ok"){
           clonedArray[data.code].states = "Ok";
           setTruckList(clonedArray);
-          console.log(clonedArray[data.code].states);
+          setCont(cont - 1);
         }
       }  
     });
     return()=>{
     socket.off('FIX')
     }
-  }, [truckList]);
+  }, [truckList, socket]);
 
   useEffect(() => {
     socket.on("FAILURE", (data) => {
@@ -110,14 +110,14 @@ function Chat({ socket, username}) {
         if (clonedArray[data.code]?.states !== data.source){
           clonedArray[data.code].states = data.source;
           setTruckList(clonedArray);
-          console.log(data);
+          setCont(cont + 1);
         }
       }
     });
     return()=>{
     socket.off('FAILURE')
     }
-  }, [truckList]);
+  }, [truckList, socket]);
 
   useEffect(() => {
     socket.on("CHAT", (data) => {
@@ -210,7 +210,30 @@ function Chat({ socket, username}) {
         </div>
       </div>
       <div class="card-group" id="cardis">
-        {Object.values(truckList).map(renderCard)}
+        {Object.values(truckList).map((card, index) => {
+          if (card.states !== "Ok"){
+            var colorcito = "#ffb3b3";
+          } else{
+            var colorcito = "#d6f5d6";
+          }
+          return (
+          <Card style={{ width: "18rem", background: colorcito}} key={index} className="box">
+            <Card.Body>
+              <Card.Title>Camión {card.code}</Card.Title>
+              <Card.Text style={{ "line-height": "0.5cm"}}>Origen: {card.origin}</Card.Text>
+              <Card.Text style={{ "line-height": "0.5cm"}}>Destino: {card.destination}</Card.Text>
+              <Card.Text style={{ "line-height": "0.5cm"}}>Estado: {card?.states}</Card.Text>
+              <Card.Text style={{ "line-height": "0.5cm"}}>Capacidad: {card.capacity}</Card.Text>
+              <Card.Text style={{ "line-height": "0.5cm"}}>Engine: {card.engine}</Card.Text>
+              {card.staff.map(function(data, idx) {
+                  return <Card.Text key={idx} style={{ "line-height": "0.5cm"}}>Staff: {data.name} ({data.age})</Card.Text>;
+              })}
+              <Card.Text style={{ "line-height": "0.5cm"}}>Truck: {card.truck}</Card.Text> 
+              {card?.states !== "Ok" && <Button onClick={() => {Arreglar(card?.code); setCont(cont +1)}} variant="primary">Arreglar</Button>}
+            </Card.Body>
+          </Card>
+          );
+        })}
       </div>
     </>
   );

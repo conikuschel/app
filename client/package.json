@@ -40,7 +40,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@types/leaflet": "^1.7.5",
-    "gh-pages": "^3.2.3"
+    "@types/leaflet": "^1.7.5"
   }
 }
