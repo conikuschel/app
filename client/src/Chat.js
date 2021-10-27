@@ -5,7 +5,6 @@ import  "leaflet-polylinedecorator";
 import { Card } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import * as L from "leaflet";
-import "leaflet/dist/images/marker-shadow.png";
 
 function Chat({ socket, username}) {
   const [currentMessage, setCurrentMessage] = useState("");
