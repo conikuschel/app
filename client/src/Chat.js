@@ -31,16 +31,11 @@ function Chat({ socket, username}) {
   };
 
   const renderCard = (card, index) => {
-    let origencito;
-    let destini;
     if (card.states !== "Ok"){
       var colorcito = "#ffb3b3";
     } else{
       var colorcito = "#d6f5d6";
     }
-    //const response = await fetch(`https://www.mapquestapi.com/geocoding/v1/reverse?key=ZVuZaJ5AAntG5DdAHPWaAraaLz5VznEi&location=${card?.origin[0]},${card?.origin[1]}&outFormat=json&thumbMaps=false`).then((response) => response.json())
-    //fetch(`https://www.mapquestapi.com/geocoding/v1/reverse?key=ZVuZaJ5AAntG5DdAHPWaAraaLz5VznEi&location=${card?.origin[0]},${card?.origin[1]}&outFormat=json&thumbMaps=false`).then((response) => response.json()).then((data) => origencito = data.results[0].locations[0].adminArea5)
-    //fetch(`https://www.mapquestapi.com/geocoding/v1/reverse?key=ZVuZaJ5AAntG5DdAHPWaAraaLz5VznEi&location=${card?.destination[0]},${card?.destination[1]}&outFormat=json&thumbMaps=false`).then((response) => response.json()).then((data) => destini = data.results[0].locations[0].adminArea5)
     return (
       <Card style={{ width: "18rem", background: colorcito}} key={index} className="box">
         <Card.Body>
