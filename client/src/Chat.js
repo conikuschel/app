@@ -30,31 +30,6 @@ function Chat({ socket, username}) {
     }
   };
 
-  const renderCard = (card, index) => {
-    if (card.states !== "Ok"){
-      var colorcito = "#ffb3b3";
-    } else{
-      var colorcito = "#d6f5d6";
-    }
-    return (
-      <Card style={{ width: "18rem", background: colorcito}} key={index} className="box">
-        <Card.Body>
-          <Card.Title>Camión {card.code}</Card.Title>
-          <Card.Text style={{ "line-height": "0.5cm"}}>Origen: {card.origin}</Card.Text>
-          <Card.Text style={{ "line-height": "0.5cm"}}>Destino: {card.destination}</Card.Text>
-          <Card.Text style={{ "line-height": "0.5cm"}}>Estado: {card?.states}</Card.Text>
-          <Card.Text style={{ "line-height": "0.5cm"}}>Capacidad: {card.capacity}</Card.Text>
-          <Card.Text style={{ "line-height": "0.5cm"}}>Engine: {card.engine}</Card.Text>
-          {card.staff.map(function(data, idx) {
-              return <Card.Text key={idx} style={{ "line-height": "0.5cm"}}>Staff: {data.name} ({data.age})</Card.Text>;
-          })}
-          <Card.Text style={{ "line-height": "0.5cm"}}>Truck: {card.truck}</Card.Text> 
-          {card?.states !== "Ok" && <Button onClick={() => {Arreglar(card?.code);}} variant="primary">Arreglar</Button>}
-        </Card.Body>
-      </Card>
-    );
-  };
-
   const Arreglar = (codigo) => {
     const datito = {
       code: codigo
